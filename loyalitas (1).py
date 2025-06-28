@@ -1,0 +1,33 @@
+from graphviz import Digraph
+
+dot = Digraph(comment='Program Loyalitas Pelanggan')
+
+dot.node('Start', 'Start', shape='ellipse')
+dot.node('Pelanggan', 'Pelanggan', shape='box')
+dot.node('Login', 'Login / Daftar akun', shape='box')
+dot.node('Pembelian', 'Melakukan Pembelian', shape='box')
+dot.node('Transaksi', 'Transaksi', shape='box')
+dot.node('CekSyaratPoin', 'Cek Syarat Poin', shape='diamond')
+dot.node('TidakPoin', 'Poin tidak ditambahkan', shape='box')
+dot.node('SimpanPoin', 'Simpan Poin', shape='box')
+dot.node('TukarPoin', 'Tukar Poin', shape='box')
+dot.node('CekPoinCukup', 'Poin Cukup?', shape='diamond')
+dot.node('TidakCukup', 'Poin tetap disimpan', shape='box')
+dot.node('ProsesHadiah', 'Proses Hadiah', shape='box')
+dot.node('End', 'End', shape='ellipse')
+
+dot.edge('Start', 'Pelanggan')
+dot.edge('Pelanggan', 'Login')
+dot.edge('Login', 'Pembelian')
+dot.edge('Pembelian', 'Transaksi')
+dot.edge('Transaksi', 'CekSyaratPoin')
+dot.edge('CekSyaratPoin', 'TidakPoin', label='Tidak')
+dot.edge('CekSyaratPoin', 'SimpanPoin', label='Ya')
+dot.edge('SimpanPoin', 'TukarPoin')
+dot.edge('TukarPoin', 'CekPoinCukup')
+dot.edge('CekPoinCukup', 'TidakCukup', label='Tidak')
+dot.edge('CekPoinCukup', 'ProsesHadiah', label='Ya')
+dot.edge('ProsesHadiah', 'End')
+
+dot.render('program_loyalitas_pelanggan', format='png', cleanup=True)
+print("Diagram berhasil dibuat sebagai 'program_loyalitas_pelanggan.png'")
